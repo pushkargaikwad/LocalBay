@@ -177,13 +177,15 @@ public class SellerProductStockDetailsFragment extends Fragment {
                 final EditText price = (EditText) view.findViewById(R.id.costPrice);
                 final EditText shippingCost = (EditText) view.findViewById(R.id.shippingCost);
 
-                if (!update) {
-                    PriceModel pmodel = new PriceModel(
-                            Integer.parseInt(price.getText().toString()),
-                            Integer.parseInt(shippingCost.getText().toString())
-                    );
+                PriceModel pmodel = new PriceModel(
+                        Integer.parseInt(price.getText().toString()),
+                        Integer.parseInt(shippingCost.getText().toString())
+                );
 
-                    spm.setPriceModel(pmodel);
+                spm.setPriceModel(pmodel);
+
+                if (!update) {
+
                     ParseObject productObject = null;
                     try {
                         productObject = spm.saveStockProduct();
