@@ -1,0 +1,259 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.localbay.anuragsingh.Seller.SellerShopProfileFragment">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/showProfile"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/profile_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:background="@color/colorSellerPrimary"
+                android:paddingBottom="20dp"
+                android:paddingTop="34dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profile_image"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/user_male"
+                    app:civ_border_color="#DDFFFFFF"
+                    app:civ_border_width="2dp" />
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/author"
+                    android:textColor="#fff"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/user_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_name"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:text="+91-9008670399"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/user_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_phone"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/author_email"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:id="@+id/edit_user_details"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/user_email"
+                    android:layout_marginRight="16dp"
+                    android:onClick="edit_userDetails"
+                    android:src="@drawable/ic_mode_edit_white_18dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/shop_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_header"
+                android:background="#eaeaea"
+                android:padding="16dp">
+
+                <RelativeLayout
+                    android:id="@+id/shop_address_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape">
+
+                    <TextView
+                        android:id="@+id/shop_address_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="@string/shop_address_label"
+                        android:textColor="#212121"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/shop_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/shop_address_label"
+                        android:layout_marginTop="4dp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:text="#1, 11th Main, Friends Colony, ST Bed Layout, IVth Block, Koramangala"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:id="@+id/shop_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/shop_address"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#DDDDDD" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/shop_divider"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:src="@drawable/ic_mode_edit_black_18dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="Edit Address"
+                            android:onClick="edit_userDetails"
+                            android:textColor="@color/colorPrimary" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/shop_address_card"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/shape">
+
+                    <TextView
+                        android:id="@+id/shop_documents_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="Shop Address"
+                        android:textColor="#212121"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/shop_documents"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/shop_documents_label"
+                        android:layout_marginTop="4dp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:text="PAN CARD, VAT"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:id="@+id/shop_documents_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/shop_documents"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#DDDDDD" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/shop_documents_divider"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_file_upload_black_18dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="Upload Documents"
+                            android:textColor="@color/colorPrimary" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/shop_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shop_details"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:paddingBottom="16dp"
+                android:paddingLeft="28dp"
+                android:paddingRight="28dp"
+                android:paddingTop="16dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_settings_black_18dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="Settings" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/border_shop_settings"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/shop_settings"
+                android:background="#EAEAEA"></View>
+
+            <LinearLayout
+                android:id="@+id/shop_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/border_shop_settings"
+                android:background="#FFF"
+                android:orientation="horizontal"
+                android:paddingBottom="16dp"
+                android:paddingLeft="28dp"
+                android:paddingRight="28dp"
+                android:onClick="logoutUser"
+                android:paddingTop="16dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_exit_to_app_black_18dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="Logout" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+</FrameLayout>

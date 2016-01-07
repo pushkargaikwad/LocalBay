@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Localbay</string>
+    <string name="app_seller">Localbay Seller</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="sellerEmailLabel">Seller Email Address</string>
+    <string name="sellerPhoneLabel">Seller Phone Number</string>
+    <string name="PasswordLabel">Password</string>
+    <string name="sign_up_message">ENTER YOUR PHONE NUMBER TO GET STARTED</string>
+
+    <string name="loginbtnLabel">LOG IN</string>
+    <string name="nextbtnLabel">NEXT</string>
+
+    <string name="signupbtnLabel">SIGN UP</string>
+
+    <string name="author">Anurag Singh</string>
+    <string name="author_email">anurag722@hotmail.com</string>
+
+    <string-array name="cities">
+        <item>Bengaluru</item>
+    </string-array>
+
+    <string-array name="nav_drawer_items">
+        <item>Product Listing</item>
+        <item>Shop Profile</item>
+    </string-array>
+
+    <string-array name="category_items">
+        <item>Electronics</item>
+        <item>Kitchen Appliances</item>
+        <item>Home Appliances</item>
+        <item>Personal Care</item>
+        <item>Sports</item>
+    </string-array>
+
+    <string-array name="category_item_desc">
+        <item>Mobiles, Laptops and Cameras</item>
+        <item>Fridge, Cookware, Oven</item>
+        <item>Washing Machines, Iron, Vacuum Cleaners</item>
+        <item>Shavers, Trimmers, Straightners, Hair Dryers </item>
+        <item>Sports Wear, Kits and Merchandises</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="shop_address_label">Shop Address</string>
+
+
+</resources>
