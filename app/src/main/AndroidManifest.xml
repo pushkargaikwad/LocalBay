@@ -15,7 +15,6 @@
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,8 +25,13 @@
         <activity
             android:name=".Seller.SellerRegistrationActivity"
             android:theme="@style/SellerTheme" />
-        <activity android:name=".buyer.BuyerRegistrationActivity" />
-        <activity android:name=".buyer.BuyerDashboardActivity"></activity>
+
+        <activity
+            android:name=".buyer.BuyerRegistrationActivity"
+            android:theme="@style/BuyerTheme" />
+        <activity
+            android:name=".buyer.BuyerDashboardActivity"
+            android:theme="@style/BuyerTheme"></activity>
     </application>
 
 </manifest>

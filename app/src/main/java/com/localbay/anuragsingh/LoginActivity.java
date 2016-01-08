@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     Log.d("CLOUD RESPONSE", "There were no exceptions!");
                     // SUCCESSFUL - SHOW OTP LAYOUT
-                    fragment = new SellerLoginOTPFragment();
+                    fragment = new BuyerLoginOTPFragment();
                     FragmentManager fm = getFragmentManager();
                     fm.beginTransaction().replace(R.id.loginFormFrame, fragment).addToBackStack("RequestOTP").commit();
                 } else {
@@ -198,7 +198,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void buyerLogin(View view) {
-        otp_input = (EditText) findViewById(R.id.sellerOTP);
+        otp_input = (EditText) findViewById(R.id.buyerOTP);
         otp = otp_input.getText().toString();
         if (otp.length() != 4) {
             Toast.makeText(LoginActivity.this, "You must enter the 4 digit code provided to your phone number.", Toast.LENGTH_LONG).show();

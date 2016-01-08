@@ -45,6 +45,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="shop_address_label">Shop Address</string>
     <string name="buyerPhoneLabel">Buyer Phone Number</string>
+    <string name="cart">Cart</string>
+    <string name="my_account">My Account</string>
+    <string name="buyer_addresses_label">My Addresses</string>
+    <string name="buyer_account_recent_orders">You have no new orders</string>
+    <string name="buyer_view_all_orders">View All Orders</string>
 
 
 </resources>
