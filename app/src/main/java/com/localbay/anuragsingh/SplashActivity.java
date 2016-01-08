@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.localbay.anuragsingh.Seller.SellerDashboardActivity;
+import com.localbay.anuragsingh.buyer.BuyerDashboardActivity;
 import com.parse.ParseUser;
 
 public class SplashActivity extends AppCompatActivity {
@@ -34,6 +35,11 @@ public class SplashActivity extends AppCompatActivity {
                         finish();
                     }
 
+                    else if(userType.equals("Buyer")){
+                        Intent intent = new Intent(SplashActivity.this, BuyerDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);

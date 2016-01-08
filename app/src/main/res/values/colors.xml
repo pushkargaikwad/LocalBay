@@ -9,6 +9,10 @@
     <color name="colorSellerPrimary">#FF9800</color>
     <color name="colorSellerSecondary">#4CAF50</color>
 
+    <color name="colorBuyerPrimaryDark">#0288D1</color>
+    <color name="colorBuyerPrimary">#03A9F4</color>
+    <color name="colorBuyerSecondary">#FFD54F</color>
+
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#727272</color>
     <color name="colorDivider">#DDD</color>

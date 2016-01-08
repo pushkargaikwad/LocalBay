@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.localbay.anuragsingh.Seller.SellerDashboardActivity;
 import com.localbay.anuragsingh.Seller.SellerRegistrationActivity;
+import com.localbay.anuragsingh.buyer.BuyerRegistrationActivity;
 import com.parse.FunctionCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseCloud;
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Fragment fragment;
     private EditText sellerPhone;
+    private EditText buyerPhone;
     ProgressBar progressBar;
     EditText otp_input;
     String otp;
@@ -46,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void buyerLoginForm(View view) {
+        fragment = new BuyerLoginFragment();
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction().replace(R.id.loginFormFrame, fragment).addToBackStack("LoginOptionFragment").commit();
     }
 
     public void sellerLoginForm(View view) {
@@ -77,6 +82,35 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void done(JSONObject response, com.parse.ParseException e) {
                 System.out.println(response);
+                if (e == null) {
+                    progressBar.setVisibility(View.GONE);
+                    Log.d("CLOUD RESPONSE", "There were no exceptions!");
+                    // SUCCESSFUL - SHOW OTP LAYOUT
+                    fragment = new SellerLoginOTPFragment();
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction().replace(R.id.loginFormFrame, fragment).addToBackStack("RequestOTP").commit();
+                } else {
+                    Log.d("CLOUD RESPONSE", "EXCEPTION: " + e);
+                    Toast.makeText(LoginActivity.this, "Something went wrong, please try again" + e, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public void buyerRequestOTP(View view) {
+        buyerPhone = (EditText) findViewById(R.id.buyerPhone);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        String phone = buyerPhone.getText().toString();
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("phoneNumber", phone);
+        params.put("userType", "Buyer");
+
+        progressBar.setVisibility(View.VISIBLE);
+        ParseCloud.callFunctionInBackground("requestOTPCode", params, new FunctionCallback<JSONObject>() {
+
+            @Override
+            public void done(JSONObject response, ParseException e) {
                 if (e == null) {
                     progressBar.setVisibility(View.GONE);
                     Log.d("CLOUD RESPONSE", "There were no exceptions!");
@@ -160,5 +194,70 @@ public class LoginActivity extends AppCompatActivity {
             });
 
         }
+    }
+
+
+    public void buyerLogin(View view) {
+        otp_input = (EditText) findViewById(R.id.sellerOTP);
+        otp = otp_input.getText().toString();
+        if (otp.length() != 4) {
+            Toast.makeText(LoginActivity.this, "You must enter the 4 digit code provided to your phone number.", Toast.LENGTH_LONG).show();
+            reset_otpUI();
+        } else {
+
+            otp = otp_input.getText().toString();
+
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("phoneNumber", sellerPhone.getText().toString());
+            params.put("otpCode", otp);
+
+            progressBar.setVisibility(View.VISIBLE);
+            ParseCloud.callFunctionInBackground("logIn", params, new FunctionCallback<String>() {
+                @Override
+                public void done(String response, ParseException e) {
+                    progressBar.setVisibility(View.GONE);
+
+                    if (e == null) {
+                        Log.d("CLOUD RESPONSE", response);
+                        token = response;
+                        ParseUser.becomeInBackground(token, new LogInCallback() {
+                            @Override
+                            public void done(ParseUser parseUser, ParseException e) {
+                                if (e == null) {
+                                    Log.d("CLOUD RESPONSE", "There were no exceptions");
+
+                                    Intent intent = new Intent(LoginActivity.this, SellerDashboardActivity.class);
+                                    startActivity(intent);
+                                    finish();
+
+                                } else {
+                                    Log.d("Cloud Response", "Exception: " + e);
+                                    Toast.makeText(getApplicationContext(),
+                                            "Something went wrong.  Please try again." + e,
+                                            Toast.LENGTH_LONG).show();
+                                    fragment = new SellerLoginFragment();
+                                    FragmentManager fm = getFragmentManager();
+                                    fm.beginTransaction().replace(R.id.loginFormFrame, fragment).addToBackStack("LoginFormOnError").commit();
+                                }
+                            }
+                        });
+                    } else {
+                        Log.d("Cloud Response", "Exception: " + response + e);
+                        Toast.makeText(getApplicationContext(),
+                                "Something went wrong.  Please try again.",
+                                Toast.LENGTH_LONG).show();
+                        fragment = new SellerLoginFragment();
+                        FragmentManager fm = getFragmentManager();
+                        fm.beginTransaction().replace(R.id.loginFormFrame, fragment).addToBackStack("LoginFormOnError").commit();
+                    }
+                }
+            });
+
+        }
+    }
+
+    public void buyerRegisterForm(View view) {
+        Intent intent = new Intent(LoginActivity.this, BuyerRegistrationActivity.class);
+        startActivity(intent);
     }
 }

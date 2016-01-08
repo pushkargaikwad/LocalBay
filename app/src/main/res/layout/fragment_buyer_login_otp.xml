@@ -1,0 +1,46 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.localbay.anuragsingh.BuyerLoginOTPFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/buyerOTPWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/buyerOTP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your One Time Password here"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/buyerLoginBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/btnHeight"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/buyerOTPWrapper"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorBuyerPrimary"
+            android:minWidth="@dimen/btnMinWidth"
+            android:onClick="buyerLogin"
+            android:paddingLeft="@dimen/btnHorizontalPadding"
+            android:paddingRight="@dimen/btnHorizontalPadding"
+            android:text="@string/loginbtnLabel"
+            android:textColor="#FFF" />
+
+    </RelativeLayout>
+
+
+</FrameLayout>

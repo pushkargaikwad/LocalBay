@@ -47,15 +47,30 @@
 
     <Button
         android:layout_width="wrap_content"
+        android:id="@+id/submitSellerOTP"
         android:layout_height="@dimen/btnHeight"
         android:layout_below="@id/otpInputWrapper"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:background="@color/colorSellerPrimary"
         android:minWidth="@dimen/btnMinWidth"
-        android:text="Submit"
         android:onClick="submitOtp"
+        android:text="Submit"
         android:textColor="#FFF" />
+
+    <Button
+        android:id="@+id/submitBuyerOtp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/btnHeight"
+        android:layout_below="@id/otpInputWrapper"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorBuyerPrimary"
+        android:minWidth="@dimen/btnMinWidth"
+        android:onClick="submitBuyerOtp"
+        android:text="Submit"
+        android:textColor="#FFF"
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progressBar_otp"
