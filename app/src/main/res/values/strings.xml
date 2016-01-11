@@ -50,6 +50,10 @@
     <string name="buyer_addresses_label">My Addresses</string>
     <string name="buyer_account_recent_orders">You have no new orders</string>
     <string name="buyer_view_all_orders">View All Orders</string>
+    <string name="buyer_phone_number_label">Mobile Number</string>
+    <string name="default_phone_number">9008670399</string>
+    <string name="buyer_email_label">Email Address</string>
+    <string name="default_email">anurag722@hotmail.com</string>
 
 
 </resources>

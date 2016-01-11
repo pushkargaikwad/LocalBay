@@ -30,6 +30,7 @@ public class StockProductModel implements Parcelable {
      */
     public StockProductModel() {
         parseUser = ParseUser.getCurrentUser();
+        dispatchTime = -1;
     }
 
     /**

@@ -117,11 +117,16 @@ public class SellerProductStockDetailsFragment extends Fragment {
         EditText shippingCost = (EditText) view.findViewById(R.id.shippingCost);
 
         if (spm != null) {
+            if(spm.getStock_units() != null)
             stockunits.setText(Integer.toString(spm.getStock_units()));
+            if(spm.getCondition() != null)
             condition.setText(spm.getCondition());
+            if(spm.getDispatchTime() != -1)
             dispatchTime.setText(Integer.toString(spm.getDispatchTime()));
             if (priceModel != null) {
+                if (priceModel.getCostPrice() != -1)
                 price.setText(Integer.toString(priceModel.getCostPrice()));
+                if (priceModel.getShippingCost() != -1)
                 shippingCost.setText(Integer.toString(priceModel.getShippingCost()));
             }
         }

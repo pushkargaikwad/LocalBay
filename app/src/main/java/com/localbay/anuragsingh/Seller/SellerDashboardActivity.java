@@ -4,10 +4,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
@@ -76,6 +76,9 @@ public class SellerDashboardActivity extends AppCompatActivity {
         // Set the drawer toggle as the DrawerListener
         drawerLayout.setDrawerListener(mDrawerToggle);
 
+        fragment = new SellerProductListingFragment();
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction().replace(R.id.contentFrame, fragment).addToBackStack("default").commit();
     }
 
 
@@ -187,7 +190,7 @@ public class SellerDashboardActivity extends AppCompatActivity {
         fm.beginTransaction().replace(R.id.contentFrame, fragment).addToBackStack("addProductListing").commit();
     }
 
-    public void setActionBarTitle(String title){
+    public void setActionBarTitle(String title) {
         setTitle(title);
     }
 }

@@ -71,7 +71,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/user_email"
                     android:layout_marginRight="16dp"
-                    android:onClick="edit_userDetails"
                     android:src="@drawable/ic_mode_edit_white_18dp" />
 
             </RelativeLayout>
@@ -202,7 +201,7 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/shop_settings"
+                android:id="@+id/buyer_account_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/shop_details"
@@ -222,14 +221,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:text="Settings" />
+                    android:text="Account Settings" />
             </LinearLayout>
 
             <View
                 android:id="@+id/border_shop_settings"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/shop_settings"
+                android:layout_below="@+id/buyer_account_settings"
                 android:background="#EAEAEA"></View>
 
             <LinearLayout

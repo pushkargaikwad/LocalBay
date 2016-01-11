@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.localbay.anuragsingh.Seller.SellerDashboardActivity;
 import com.localbay.anuragsingh.Seller.SellerRegistrationActivity;
+import com.localbay.anuragsingh.buyer.BuyerDashboardActivity;
 import com.localbay.anuragsingh.buyer.BuyerRegistrationActivity;
 import com.parse.FunctionCallback;
 import com.parse.LogInCallback;
@@ -208,7 +209,7 @@ public class LoginActivity extends AppCompatActivity {
             otp = otp_input.getText().toString();
 
             HashMap<String, Object> params = new HashMap<>();
-            params.put("phoneNumber", sellerPhone.getText().toString());
+            params.put("phoneNumber", buyerPhone.getText().toString());
             params.put("otpCode", otp);
 
             progressBar.setVisibility(View.VISIBLE);
@@ -226,7 +227,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (e == null) {
                                     Log.d("CLOUD RESPONSE", "There were no exceptions");
 
-                                    Intent intent = new Intent(LoginActivity.this, SellerDashboardActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, BuyerDashboardActivity.class);
                                     startActivity(intent);
                                     finish();
 
@@ -235,7 +236,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(),
                                             "Something went wrong.  Please try again." + e,
                                             Toast.LENGTH_LONG).show();
-                                    fragment = new SellerLoginFragment();
+                                    fragment = new BuyerLoginFragment();
                                     FragmentManager fm = getFragmentManager();
                                     fm.beginTransaction().replace(R.id.loginFormFrame, fragment).addToBackStack("LoginFormOnError").commit();
                                 }

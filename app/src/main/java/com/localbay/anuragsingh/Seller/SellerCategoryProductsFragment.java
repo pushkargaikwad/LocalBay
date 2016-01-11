@@ -1,14 +1,15 @@
 package com.localbay.anuragsingh.Seller;
 
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.localbay.anuragsingh.R;
 import com.localbay.anuragsingh.adapters.sellerAdapters.StockProductsAdapter;
@@ -36,10 +37,11 @@ public class SellerCategoryProductsFragment extends Fragment {
     StockProductsAdapter spa;
 
     /**
-     *  FRAGMENT TO OPEN THE STOCK DETAILS
+     * FRAGMENT TO OPEN THE STOCK DETAILS
      */
     Fragment fragment;
     List<StockProductModel> stockProducts;
+    ProgressBar progressBar;
 
     public SellerCategoryProductsFragment() {
         // Required empty public constructor
@@ -70,6 +72,8 @@ public class SellerCategoryProductsFragment extends Fragment {
         spa = new StockProductsAdapter(getActivity().getBaseContext(), R.id.categoryProductsParent, stockProducts);
         categoryProductsView.setAdapter(spa);
 
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+
         // GET ALL STOCK PRODUCTS FOR USER WITH CATEGORY - category
         // CATEGORY IS AN ATTRIBUTE OF PRDOUCT CATALOG CLASS
         ParseQuery pq = ParseQuery.getQuery("StockProduct");
@@ -78,6 +82,8 @@ public class SellerCategoryProductsFragment extends Fragment {
         /**
          * LOADING PRODUCTS FROM PARSE, WHICH FALL IN THE CATEGORY FOR THE SELLER
          */
+
+        progressBar.setVisibility(View.VISIBLE);
 
         pq.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -144,8 +150,10 @@ public class SellerCategoryProductsFragment extends Fragment {
                             }
                         });
                     }
+                    progressBar.setVisibility(View.GONE);
                 } else {
                     e.printStackTrace();
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });

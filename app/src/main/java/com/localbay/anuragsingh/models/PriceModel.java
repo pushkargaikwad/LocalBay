@@ -15,6 +15,10 @@ public class PriceModel implements Parcelable {
     private int costPrice;
     private int shippingCost;
 
+    public PriceModel() {
+        costPrice = -1;
+        shippingCost = -1;
+    }
 
     public ParseObject savePrice() throws ParseException {
         ParseObject po = new ParseObject("Price");

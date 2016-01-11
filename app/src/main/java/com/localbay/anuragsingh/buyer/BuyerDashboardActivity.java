@@ -45,12 +45,12 @@ public class BuyerDashboardActivity extends AppCompatActivity {
 
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(R.string.app_seller);
+                getSupportActionBar().setTitle(R.string.app_name);
                 supportInvalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View view) {
-                getSupportActionBar().setTitle(R.string.app_seller);
+                getSupportActionBar().setTitle(R.string.app_name);
                 supportInvalidateOptionsMenu();
             }
         };

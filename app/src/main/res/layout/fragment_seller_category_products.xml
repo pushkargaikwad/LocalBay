@@ -16,4 +16,13 @@
             android:layout_height="match_parent"></ListView>
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="#fff"
+        android:visibility="gone" />
+
 </FrameLayout>
