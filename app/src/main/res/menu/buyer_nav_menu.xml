@@ -13,15 +13,17 @@
             <menu>
                 <item
                     android:id="@+id/subCategoryMobiles"
-                    android:icon=""
+                    android:icon="@drawable/ic_phone_android_black_24dp"
                     android:title="Mobiles" />
 
                 <item
                     android:id="@+id/subCategoryLaptops"
+                    android:icon="@drawable/ic_laptop_black_24dp"
                     android:title="Laptops" />
 
                 <item
                     android:id="@+id/subCategoryCameras"
+                    android:icon="@drawable/ic_camera_alt_black_24dp"
                     android:title="Cameras" />
             </menu>
         </item>

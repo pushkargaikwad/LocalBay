@@ -75,11 +75,25 @@ public class BuyerDashboardActivity extends AppCompatActivity {
                         break;
 
                     default:
-                        selectedCategory = "home";
+                        selectedCategory = item.getTitle().toString();
                         break;
                 }
 
-                Log.d("SELECTEDCATEGORY", selectedCategory);
+                if (selectedCategory.equals("home")) {
+                    fragment = new BuyerHomeFragment();
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction().replace(R.id.contentFrame, fragment).addToBackStack("BUYER_HOME").commit();
+
+                } else {
+                    fragment = new BuyerCategoryProductsFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("lb_selectedCategory", selectedCategory);
+                    fragment.setArguments(bundle);
+
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction().replace(R.id.contentFrame, fragment).addToBackStack("CATEGORY_WISE_LISTING").commit();
+                }
+                Log.d("SELECTED_CATEGORY", selectedCategory);
                 drawerLayout.closeDrawers();
                 return true;
             }
