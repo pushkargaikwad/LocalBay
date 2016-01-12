@@ -4,9 +4,11 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +24,7 @@ public class BuyerDashboardActivity extends AppCompatActivity {
     Fragment fragment;
     FragmentManager fragmentManager;
     DrawerLayout drawerLayout;
+    NavigationView buyerNavView;
 
 
     @Override
@@ -57,6 +60,30 @@ public class BuyerDashboardActivity extends AppCompatActivity {
 
         // Set the drawer toggle as the DrawerListener
         drawerLayout.setDrawerListener(mDrawerToggle);
+
+        buyerNavView = (NavigationView) findViewById(R.id.navPanel);
+        buyerNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                item.setChecked(true);
+
+                String selectedCategory = null;
+
+                switch (item.getItemId()) {
+                    case R.id.buyerHome:
+                        selectedCategory = "home";
+                        break;
+
+                    default:
+                        selectedCategory = "home";
+                        break;
+                }
+
+                Log.d("SELECTEDCATEGORY", selectedCategory);
+                drawerLayout.closeDrawers();
+                return true;
+            }
+        });
 
     }
 

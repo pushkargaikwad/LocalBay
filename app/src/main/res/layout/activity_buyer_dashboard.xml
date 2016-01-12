@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/buyer_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/buyer_drawer"
     tools:context="com.localbay.anuragsingh.buyer.BuyerDashboardActivity">
 
     <FrameLayout
@@ -11,12 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"></FrameLayout>
 
-    <RelativeLayout
+
+    <android.support.design.widget.NavigationView
         android:id="@+id/navPanel"
-        android:layout_width="@dimen/drawerWidth"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#fff">
+        app:headerLayout="@layout/buyer_nav_drawer_header"
+        app:menu="@menu/buyer_nav_menu" />
 
-    </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

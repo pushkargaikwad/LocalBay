@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/buyerHome"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/categoryElectronics"
+            android:title="Electronics">
+            <menu>
+                <item
+                    android:id="@+id/subCategoryMobiles"
+                    android:icon=""
+                    android:title="Mobiles" />
+
+                <item
+                    android:id="@+id/subCategoryLaptops"
+                    android:title="Laptops" />
+
+                <item
+                    android:id="@+id/subCategoryCameras"
+                    android:title="Cameras" />
+            </menu>
+        </item>
+
+        <item
+            android:id="@+id/categoryKitchenAppliances"
+            android:title="Kitchen Appliances" />
+
+        <item
+            android:id="@+id/categoryHomeAppliances"
+            android:title="Home Appliances" />
+
+        <item
+            android:id="@+id/categoryPersonalCare"
+            android:title="Personal Care" />
+
+        <item
+            android:id="@+id/categorySports"
+            android:title="Sports" />
+
+    </group>
+</menu>
