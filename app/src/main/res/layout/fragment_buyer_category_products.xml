@@ -4,12 +4,18 @@
     android:layout_height="match_parent"
     tools:context="com.localbay.anuragsingh.buyer.BuyerCategoryProductsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/catefrag"
+    <RelativeLayout
+        android:id="@+id/categoryProductsParent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/categoryProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </ListView>
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"

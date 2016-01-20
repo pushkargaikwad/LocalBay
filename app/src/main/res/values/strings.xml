@@ -60,6 +60,7 @@
     <string name="default_phone_number">9008670399</string>
     <string name="buyer_email_label">Email Address</string>
     <string name="default_email">anurag722@hotmail.com</string>
+    <string name="out_of_stock_text">OUT OF STOCK</string>
 
 
 </resources>

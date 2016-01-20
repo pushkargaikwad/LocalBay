@@ -8,7 +8,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -68,6 +67,7 @@ public class BuyerDashboardActivity extends AppCompatActivity {
                 item.setChecked(true);
 
                 String selectedCategory = null;
+                String selectedType = "category";
 
                 switch (item.getItemId()) {
                     case R.id.buyerHome:
@@ -76,6 +76,9 @@ public class BuyerDashboardActivity extends AppCompatActivity {
 
                     default:
                         selectedCategory = item.getTitle().toString();
+                        if (getResources().getResourceName(item.getItemId()).contains("subCategory")) {
+                            selectedType = "subCategory";
+                        }
                         break;
                 }
 
@@ -88,12 +91,13 @@ public class BuyerDashboardActivity extends AppCompatActivity {
                     fragment = new BuyerCategoryProductsFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("lb_selectedCategory", selectedCategory);
+                    bundle.putString("lb_selectedType", selectedType);
+
                     fragment.setArguments(bundle);
 
                     FragmentManager fm = getFragmentManager();
                     fm.beginTransaction().replace(R.id.contentFrame, fragment).addToBackStack("CATEGORY_WISE_LISTING").commit();
                 }
-                Log.d("SELECTED_CATEGORY", selectedCategory);
                 drawerLayout.closeDrawers();
                 return true;
             }
