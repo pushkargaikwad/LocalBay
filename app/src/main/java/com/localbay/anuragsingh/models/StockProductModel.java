@@ -52,6 +52,8 @@ public class StockProductModel implements Parcelable {
         catalogRelation.add(parseCatalogModel);
 
         ParseRelation userRelation = productObject.getRelation("sold_by");
+        productObject.put("seller", parseUser);
+
         userRelation.add(parseUser);
 
         productObject.save();

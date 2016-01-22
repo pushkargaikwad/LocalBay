@@ -16,7 +16,6 @@ import com.koushikdutta.ion.Ion;
 import com.localbay.anuragsingh.R;
 import com.localbay.anuragsingh.adapters.buyerAdapters.BuyerProductSellersAdapter;
 import com.localbay.anuragsingh.models.CatalogModel;
-import com.localbay.anuragsingh.models.PriceModel;
 import com.localbay.anuragsingh.models.StockProductModel;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -96,10 +95,9 @@ public class BuyerProductFragment extends Fragment {
 
                             @Override
                             public void done(List<ParseObject> objects, ParseException e) {
-                                if (e != null){
+                                if (e != null) {
                                     e.printStackTrace();
-                                }
-                                else if (e == null) {
+                                } else if (e == null) {
                                     progressBar.setVisibility(View.GONE);
 
                                     if (objects.size() != 0) {
@@ -113,21 +111,26 @@ public class BuyerProductFragment extends Fragment {
                                             current_stock_product.setCondition(current_stock.getString("condition"));
 
                                             System.out.println(current_stock_object.getObjectId());
+
                                             /**
                                              * GET SELLER FOR CURRENT PRODUCT
                                              */
-
-                                            ParseRelation<ParseUser> getSellerRelation = current_stock_object.getRelation("sold_by");
-                                            ParseQuery getSeller = getSellerRelation.getQuery();
-
-                                            getSeller.findInBackground(new FindCallback<ParseUser>() {
+                                            ParseRelation<ParseUser> seller_current = current_stock_object.getRelation("sold_by");
+                                            ParseQuery<ParseUser> getSellerCurrent = seller_current.getQuery();
+                                            // ParseQuery getSeller = current_stock_object.getRelation("sold_by").getQuery();
+                                            getSellerCurrent.findInBackground(new FindCallback<ParseUser>() {
 
                                                 @Override
                                                 public void done(List<ParseUser> users, ParseException e) {
-                                                    if (e!=null){
+                                                    if (e != null) {
                                                         e.printStackTrace();
                                                     }
-                                                    Log.d("USER SIZE", Integer.toString(users.size()));
+                                                    else{
+                                                        Log.d("PARSEUSERSIZE", Integer.toString(users.size()));
+                                                        for (ParseUser current_seller : users){
+                                                            Log.d("EMAILX", current_seller.getString("email"));
+                                                        }
+                                                    }
                                                 }
                                             });
 
@@ -136,8 +139,8 @@ public class BuyerProductFragment extends Fragment {
                                             getPrice.findInBackground(new FindCallback<ParseObject>() {
 
                                                 @Override
-                                                public void done(List<ParseObject>prices, ParseException e) {
-                                                    Log.d("SIZE", Integer.toString(prices.size()));
+                                                public void done(List<ParseObject> prices, ParseException e) {
+                                                    Log.d("PRICE SIZE", Integer.toString(prices.size()));
                                                     System.out.println(prices.get(0).get("costPrice"));
                                                 }
                                             });
