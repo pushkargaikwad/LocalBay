@@ -20,7 +20,6 @@ import com.localbay.anuragsingh.SplashActivity;
 import com.localbay.anuragsingh.adapters.sellerAdapters.NavAdapter;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -151,28 +150,17 @@ public class SellerDashboardActivity extends AppCompatActivity {
         address.put("city", shop_city);
         address.put("state", shop_state);
         address.put("isPrimary", isPrimary);
+        address.put("resident", ParseUser.getCurrentUser());
         address.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e != null)
                     e.printStackTrace();
                 else {
-                    ParseUser parseUser = ParseUser.getCurrentUser();
-                    ParseRelation parseRelation = parseUser.getRelation("addresses");
-                    parseRelation.add(address);
-                    parseUser.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if (e != null) {
-                                e.printStackTrace();
-                            } else {
-                                progressBar.setVisibility(View.GONE);
-                                fragment = new SellerShopProfileFragment();
-                                android.app.FragmentManager fragmentManager = getFragmentManager();
-                                fragmentManager.beginTransaction().replace(R.id.contentFrame, fragment).addToBackStack("shopProfile").commit();
-                            }
-                        }
-                    });
+                    progressBar.setVisibility(View.GONE);
+                    fragment = new SellerShopProfileFragment();
+                    android.app.FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.contentFrame, fragment).addToBackStack("shopProfile").commit();
                 }
             }
         });
