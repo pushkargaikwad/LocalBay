@@ -1,10 +1,9 @@
 package com.localbay.anuragsingh.Seller;
 
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import com.localbay.anuragsingh.models.CatalogModel;
 import com.localbay.anuragsingh.models.PriceModel;
 import com.localbay.anuragsingh.models.StockProductModel;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -117,17 +115,17 @@ public class SellerProductStockDetailsFragment extends Fragment {
         EditText shippingCost = (EditText) view.findViewById(R.id.shippingCost);
 
         if (spm != null) {
-            if(spm.getStock_units() != null)
-            stockunits.setText(Integer.toString(spm.getStock_units()));
-            if(spm.getCondition() != null)
-            condition.setText(spm.getCondition());
-            if(spm.getDispatchTime() != -1)
-            dispatchTime.setText(Integer.toString(spm.getDispatchTime()));
+            if (spm.getStock_units() != null)
+                stockunits.setText(Integer.toString(spm.getStock_units()));
+            if (spm.getCondition() != null)
+                condition.setText(spm.getCondition());
+            if (spm.getDispatchTime() != -1)
+                dispatchTime.setText(Integer.toString(spm.getDispatchTime()));
             if (priceModel != null) {
                 if (priceModel.getCostPrice() != -1)
-                price.setText(Integer.toString(priceModel.getCostPrice()));
+                    price.setText(Integer.toString(priceModel.getCostPrice()));
                 if (priceModel.getShippingCost() != -1)
-                shippingCost.setText(Integer.toString(priceModel.getShippingCost()));
+                    shippingCost.setText(Integer.toString(priceModel.getShippingCost()));
             }
         }
 
@@ -167,7 +165,6 @@ public class SellerProductStockDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
                 progressBar.setVisibility(View.VISIBLE);
 
                 EditText stockunits = (EditText) view.findViewById(R.id.stockunits);
@@ -220,53 +217,48 @@ public class SellerProductStockDetailsFragment extends Fragment {
                     getStockProducts.whereEqualTo("sold_by", currentUser);
                     getStockProducts.whereEqualTo("catalog_product", spm.getParseCatalogModel());
 
+                    getStockProducts.include("price");
+                    getStockProducts.include("catalog_product");
+                    getStockProducts.include("sold_by");
+
                     getStockProducts.findInBackground(new FindCallback<ParseObject>() {
                         @Override
                         public void done(List<ParseObject> objects, ParseException e) {
                             if (e == null)
-                                parseStockProduct = objects.get(0);
+                                if (objects.size() != 0) {
+                                    parseStockProduct = objects.get(0);
 
+                                    if (parseStockProduct != null) {
 
-                            if (parseStockProduct != null) {
-                                parseStockProduct.put("condition", spm.getCondition());
-                                parseStockProduct.put("dispatch_time", spm.getDispatchTime());
+                                        parseStockProduct.put("condition", spm.getCondition());
+                                        parseStockProduct.put("dispatch_time", spm.getDispatchTime());
 
-                                ParseRelation priceRelation = (ParseRelation) parseStockProduct.getRelation("prices");
-                                ParseQuery getPriceParse = priceRelation.getQuery();
-                                getPriceParse.findInBackground(new FindCallback<ParseObject>() {
-                                    @Override
-                                    public void done(List<ParseObject> objects, ParseException e) {
-                                        if (e == null) {
-                                            ParseObject parsePrice = objects.get(0);
+                                        ParseObject parsePrice = (ParseObject) parseStockProduct.get("price");
+                                        parsePrice.put("shippingCost", spm.getPriceModel().getShippingCost());
+                                        parsePrice.put("costPrice", spm.getPriceModel().getCostPrice());
 
-                                            parsePrice.put("shippingCost", spm.getPriceModel().getShippingCost());
-                                            parsePrice.put("costPrice", spm.getPriceModel().getCostPrice());
-
-                                            parsePrice.saveInBackground(new SaveCallback() {
-                                                @Override
-                                                public void done(ParseException e) {
-                                                    if (e == null)
-                                                        parseStockProduct.saveInBackground(new SaveCallback() {
-                                                            @Override
-                                                            public void done(ParseException e) {
-                                                                if (e == null) {
-                                                                    progressBar.setVisibility(View.GONE);
-                                                                    fragment = new SellerProductListingFragment();
-                                                                    FragmentManager fm = getFragmentManager();
-                                                                    fm.beginTransaction().replace(R.id.contentFrame, fragment).addToBackStack("registerShop").commit();
-                                                                }
+                                        parsePrice.saveInBackground(new SaveCallback() {
+                                            @Override
+                                            public void done(ParseException e) {
+                                                if (e == null)
+                                                    parseStockProduct.saveInBackground(new SaveCallback() {
+                                                        @Override
+                                                        public void done(ParseException e) {
+                                                            if (e == null) {
+                                                                progressBar.setVisibility(View.GONE);
+                                                                fragment = new SellerProductListingFragment();
+                                                                FragmentManager fm = getFragmentManager();
+                                                                fm.beginTransaction().replace(R.id.contentFrame, fragment).addToBackStack("registerShop").commit();
                                                             }
-                                                        });
-                                                }
-                                            });
-                                        }
+                                                        }
+                                                    });
+                                            }
+                                        });
+
+                                    } else {
+                                        Toast.makeText(getActivity().getBaseContext(), "Error Updating the Stock, Please Try again", Toast.LENGTH_LONG);
                                     }
-
-                                });
-
-                            } else {
-                                Toast.makeText(getActivity().getBaseContext(), "Error Updating the Stock, Please Try again", Toast.LENGTH_LONG);
-                            }
+                                }
                         }
                     });
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.localbay.anuragsingh.R;
 import com.localbay.anuragsingh.adapters.sellerAdapters.StockProductsAdapter;
@@ -78,86 +79,64 @@ public class SellerCategoryProductsFragment extends Fragment {
         // CATEGORY IS AN ATTRIBUTE OF PRDOUCT CATALOG CLASS
         ParseQuery pq = ParseQuery.getQuery("StockProduct");
         pq.whereEqualTo("sold_by", parseUser);
+        pq.include("price");
+        pq.include("catalog_product");
 
         /**
          * LOADING PRODUCTS FROM PARSE, WHICH FALL IN THE CATEGORY FOR THE SELLER
          */
 
         progressBar.setVisibility(View.VISIBLE);
-
         pq.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
+
                 if (e == null) {
-                    for (final ParseObject sellerStockProduct : list) {
+                    if (list.size() != 0) {
+                        for (ParseObject sellerStockProduct : list) {
+                            ParseObject catalogProduct = (ParseObject) sellerStockProduct.get("catalog_product");
+                            ParseObject stockPrice = (ParseObject) sellerStockProduct.get("price");
 
-                        final ParseRelation catalogProduct = sellerStockProduct.getRelation("catalog_product");
-                        ParseQuery getCatalogProduct = catalogProduct.getQuery();
+                            if (catalogProduct.getString("category").equals(category)) {
+                                int costPrice = (int) stockPrice.get("costPrice");
+                                int shippingCost = (int) stockPrice.get("shippingCost");
 
-                        // GETTING CATALOG PRODUCTS IN BACKGROUND
-                        getCatalogProduct.findInBackground(new FindCallback<ParseObject>() {
-                            @Override
-                            public void done(List<ParseObject> objects, ParseException e) {
-                                if (e == null) {
-                                    for (final ParseObject catProduct : objects) {
+                                PriceModel priceModel = new PriceModel(
+                                        costPrice,
+                                        shippingCost
+                                );
 
-                                        //  CHECK CATEGORY
-                                        if (catProduct.getString("category").equals(category)) {
-                                            // GET PRICE
-                                            ParseRelation stockPrice = sellerStockProduct.getRelation("prices");
-                                            ParseQuery getPrice = stockPrice.getQuery();
-                                            getPrice.findInBackground(new FindCallback<ParseObject>() {
-                                                @Override
-                                                public void done(List<ParseObject> prices, ParseException e) {
-                                                    if (e == null) {
+                                CatalogModel currentCatalogProduct = new CatalogModel(
+                                        catalogProduct.getString("manufacturer"),
+                                        catalogProduct.getString("title"),
+                                        catalogProduct.getString("category"),
+                                        catalogProduct.getString("subCategory"),
+                                        catalogProduct.getString("variant"),
+                                        catalogProduct.getString("imageUrl")
+                                );
 
-                                                        int costPrice = (int) prices.get(0).get("costPrice");
-                                                        int shippingCost = (int) prices.get(0).get("shippingCost");
+                                StockProductModel currentStockProduct = new StockProductModel();
+                                currentStockProduct.setCatalogModel(currentCatalogProduct);
+                                currentStockProduct.setStock_units(sellerStockProduct.getInt("stock_units"));
+                                currentStockProduct.setCondition(sellerStockProduct.getString("condition"));
+                                currentStockProduct.setDispatchTime(Integer.parseInt(sellerStockProduct.get("dispatch_time").toString()));
+                                currentStockProduct.setPriceModel(priceModel);
 
-                                                        PriceModel priceModel = new PriceModel(
-                                                                costPrice,
-                                                                shippingCost
-                                                        );
-
-                                                        CatalogModel currentCatalogProduct = new CatalogModel(
-                                                                catProduct.getString("manufacturer"),
-                                                                catProduct.getString("title"),
-                                                                catProduct.getString("category"),
-                                                                catProduct.getString("subCategory"),
-                                                                catProduct.getString("variant"),
-                                                                catProduct.getString("imageUrl")
-                                                        );
-
-
-                                                        StockProductModel currentStockProduct = new StockProductModel();
-                                                        currentStockProduct.setCatalogModel(currentCatalogProduct);
-                                                        currentStockProduct.setStock_units(sellerStockProduct.getInt("stock_units"));
-                                                        currentStockProduct.setCondition(sellerStockProduct.getString("condition"));
-                                                        currentStockProduct.setDispatchTime(Integer.parseInt(sellerStockProduct.get("dispatch_time").toString()));
-                                                        currentStockProduct.setPriceModel(priceModel);
-
-                                                        stockProducts.add(currentStockProduct);
-
-                                                        spa.notifyDataSetChanged();
-                                                    }
-                                                } // done loop ends
-
-                                            }); //find in background ends for price
-
-                                        }
-                                    }
-                                }
+                                stockProducts.add(currentStockProduct);
+                                spa.notifyDataSetChanged();
                             }
-                        });
+                        }
+
                     }
-                    progressBar.setVisibility(View.GONE);
                 } else {
-                    e.printStackTrace();
-                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getActivity().getBaseContext(), "Error fetching products", Toast.LENGTH_LONG);
                 }
+                progressBar.setVisibility(View.GONE);
+
             }
         });
 
+        
         // ================ LISTVIEW ON CLICK HANDLER ==================
         categoryProductsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

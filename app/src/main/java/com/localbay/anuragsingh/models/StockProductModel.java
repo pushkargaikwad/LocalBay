@@ -2,11 +2,9 @@ package com.localbay.anuragsingh.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 /**
@@ -43,18 +41,16 @@ public class StockProductModel implements Parcelable {
         productObject.put("condition", condition);
         productObject.put("dispatch_time", dispatchTime);
 
+        // POINTER TO PRICE
         ParseObject priceObject = priceModel.savePrice();
-        ParseRelation priceRelation = productObject.getRelation("prices");
-        priceRelation.add(priceObject);
+        productObject.put("price", priceObject);
 
+        // POINTER TO CATALOG MODEL
         ParseObject parseCatalogModel = getParseCatalogModel();
-        ParseRelation catalogRelation = productObject.getRelation("catalog_product");
-        catalogRelation.add(parseCatalogModel);
+        productObject.put("catalog_product", parseCatalogModel);
 
-        ParseRelation userRelation = productObject.getRelation("sold_by");
-        productObject.put("seller", parseUser);
-
-        userRelation.add(parseUser);
+        // POINTER TO PARSEUSER
+        productObject.put("sold_by", parseUser);
 
         productObject.save();
 
