@@ -124,14 +124,13 @@
                 android:id="@+id/update_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/isPrimary"
                 android:background="@color/colorPrimary"
-                android:onClick="updateShopDetails"
                 android:paddingLeft="@dimen/horizontal_lg_margin"
                 android:paddingRight="@dimen/horizontal_lg_margin"
                 android:text="Update"
-                android:textColor="#FFF"
-                android:layout_alignTop="@+id/isPrimary"
-                android:layout_alignParentEnd="true" />
+                android:textColor="#FFF" />
 
         </RelativeLayout>
     </ScrollView>

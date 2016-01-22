@@ -1,8 +1,8 @@
 package com.localbay.anuragsingh.Seller;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,6 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.util.List;
@@ -23,6 +22,7 @@ import java.util.List;
  */
 public class SellerShopProfileFragment extends Fragment {
 
+    private ParseObject SellerAddress;
 
     public SellerShopProfileFragment() {
         // Required empty public constructor
@@ -46,11 +46,12 @@ public class SellerShopProfileFragment extends Fragment {
         user_phone.setText(parseUser.get("phoneNumber").toString());
         user_email.setText(parseUser.get("email").toString());
 
-        ParseRelation parseRelation = parseUser.getRelation("addresses");
-        ParseQuery pquery = parseRelation.getQuery();
 
-        pquery.whereEqualTo("isPrimary", true);
-        pquery.findInBackground(new FindCallback<ParseObject>() {
+        ParseQuery getAddress = new ParseQuery("Address");
+        getAddress.whereEqualTo("resident", parseUser);
+
+        getAddress.whereEqualTo("isPrimary", true);
+        getAddress.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List list, ParseException e) {
                 if (e != null) {
@@ -60,7 +61,7 @@ public class SellerShopProfileFragment extends Fragment {
                     if (list.size() != 0) {
                         ParseObject pobj = (ParseObject) list.get(0);
                         address_str.append(pobj.get("address").toString());
-                        address_str.append(", near");
+                        address_str.append(", near ");
                         address_str.append(pobj.get("landmark").toString());
                         address_str.append(", ");
                         address_str.append(pobj.get("city").toString());

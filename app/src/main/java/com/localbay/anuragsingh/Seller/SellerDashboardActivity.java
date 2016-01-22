@@ -122,50 +122,6 @@ public class SellerDashboardActivity extends AppCompatActivity {
         }
     }
 
-    public void updateShopDetails(View view) {
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
-
-        EditText user_name_input = (EditText) findViewById(R.id.user_name);
-        EditText pincode_input = (EditText) findViewById(R.id.shop_pincode);
-        EditText shop_address_input = (EditText) findViewById(R.id.shop_address);
-        EditText shop_landmark_input = (EditText) findViewById(R.id.landmark);
-        EditText shop_city_input = (EditText) findViewById(R.id.city);
-        EditText shop_state_input = (EditText) findViewById(R.id.state);
-        CheckBox isPrimary_input = (CheckBox) findViewById(R.id.isPrimary);
-
-        String user_name = user_name_input.getText().toString();
-        String pincode = pincode_input.getText().toString();
-        String shop_address = shop_address_input.getText().toString();
-        String shop_landmark = shop_landmark_input.getText().toString();
-        String shop_city = shop_city_input.getText().toString();
-        String shop_state = shop_state_input.getText().toString();
-        Boolean isPrimary = isPrimary_input.isChecked();
-
-
-        final ParseObject address = new ParseObject("Address");
-        address.put("pincode", pincode);
-        address.put("address", shop_address);
-        address.put("landmark", shop_landmark);
-        address.put("city", shop_city);
-        address.put("state", shop_state);
-        address.put("isPrimary", isPrimary);
-        address.put("resident", ParseUser.getCurrentUser());
-        address.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null)
-                    e.printStackTrace();
-                else {
-                    progressBar.setVisibility(View.GONE);
-                    fragment = new SellerShopProfileFragment();
-                    android.app.FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.contentFrame, fragment).addToBackStack("shopProfile").commit();
-                }
-            }
-        });
-    }
-
     public void logoutUser(View view) {
         ParseUser.getCurrentUser().logOut();
         Intent intent = new Intent(this, SplashActivity.class);
